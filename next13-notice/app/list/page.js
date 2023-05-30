@@ -1,4 +1,5 @@
 import { connectDB } from "@/util/database";
+import Link from "next/link";
 
 export default async function List() {
   const db = (await connectDB).db("nextjsnotice");
@@ -7,16 +8,19 @@ export default async function List() {
   let result = await db.collection("post").find().toArray(); // Promise 반환하는 코드만 await 붙이기 가능
   console.log(result, "리스트데이터");
   console.log(result[1].title, "제목만 가져오기");
+  console.log(result[1]._id, "id만 가져오기");
 
   return (
     <div className="list-bg">
       {result.map((list) => {
         return (
-          <div className="list-item">
-            <h4>{list.title}</h4>
-            <p>1월 1일</p>
-            <span>{list.content}</span>
-          </div>
+          <Link href={`/detail/${list._id}`}>
+            <div className="list-item">
+              <h4>{list.title}</h4>
+              <p>1월 1일</p>
+              <span>{list.content}</span>
+            </div>
+          </Link>
         );
       })}
     </div>
