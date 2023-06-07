@@ -12,6 +12,7 @@ export default function Write() {
       <form action="/api/list" method="GET">
         <button type="submit">모든 데이터 가져오기 버튼</button>
       </form>
+
       <form action="/api/date" method="GET">
         <button type="submit">현재 날짜, 시간 가져오기 버튼</button>
       </form>
