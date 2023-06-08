@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <header>
-          <div className="flex flex-row gap-6">
+          <div className="flex flex-row gap-4 navbar">
             <div>
               <Link href="/">
                 <h2>main 페이지</h2>

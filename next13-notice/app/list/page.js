@@ -20,12 +20,15 @@ export default async function List() {
             만약 게시판같이 쓸데없이 페이지를 미리 로드하기 싫다면 태그에 prefetch={false} 를 써주자. 
             추가로 개발중일땐 prefetch 여부 확인불가하고 나중에 사이트를 발행하면 확인 가능하다.
             */}
-            <Link prefetch={false} href={`/detail/${list._id}`}>
-              <h4>
-                {list.title} (id: {list._id})
-              </h4>
-            </Link>
-
+            <div className="flex flex-row gap-2">
+              <Link prefetch={false} href={`/detail/${list._id}`}>
+                <h4>
+                  {list.title}
+                  {/* (id: {list._id}) */}
+                </h4>
+              </Link>
+              <Link href={`/edit/${list._id}`}>수정</Link>
+            </div>
             <DetailLink />
             <p>1월 1일</p>
             <span>{list.content}</span>

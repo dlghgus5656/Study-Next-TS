@@ -61,3 +61,21 @@ button {
   border: none;
   border-radius: 5px;
 }
+
+a {
+  text-decoration: none;
+  color: blueviolet;
+}
+
+.navbar {
+  background: white;
+  padding: 20px;
+}
+.navbar a {
+  margin-right: 10px;
+  text-decoration: none;
+  color: black;
+}
+.logo {
+  font-weight: bold;
+}

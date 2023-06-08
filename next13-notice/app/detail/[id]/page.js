@@ -9,8 +9,13 @@ export default async function Detail(props) {
   let result = await db
     .collection("post")
     .findOne({ _id: new ObjectId(props.params.id) });
-  console.log(result, "#@#@");
-  console.log(props.params.id, "props");
 
-  return <div>{result.title}</div>;
+  // console.log(props.params.id, "props");
+
+  return (
+    <div>
+      <h2>{result.title}</h2>
+      {result.content}
+    </div>
+  );
 }
