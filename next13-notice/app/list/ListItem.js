@@ -30,9 +30,25 @@ export default function ListItem({ result }) {
               <span
                 onClick={() => {
                   fetch("/api/post/delete", {
-                    method: "DELETE",
-                    body: result[i]._id, // 배열이나 오브젝트는 JSON.stringify로 보내주기
-                  });
+                    method: "POST",
+                    body: list._id, // 배열이나 오브젝트는 JSON.stringify로 보내주기
+                  })
+                    .then((r) => {
+                      if (r.status === 200) {
+                        return r.json();
+                      } else {
+                        // 서버가 에러코드 전송시 실행할 코드
+                        console.log(r);
+                      }
+                    })
+                    .then((result) => {
+                      // 성공시 실행할 코드
+                      console.log(result);
+                    })
+                    .catch((error) => {
+                      // 인터넷문제로 실패시 실행할 코드
+                      console.log(error);
+                    });
                   //   .then(() => {
                   //     console.log(result._id, "list._id 삭제 성공");
                   //   });
