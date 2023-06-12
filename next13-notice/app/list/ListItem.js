@@ -18,45 +18,47 @@ export default function ListItem({ result }) {
             만약 게시판같이 쓸데없이 페이지를 미리 로드하기 싫다면 태그에 prefetch={false} 를 써주자. 
             추가로 개발중일땐 prefetch 여부 확인불가하고 나중에 사이트를 발행하면 확인 가능하다.
             */}
-            <div className="flex flex-row gap-2">
-              <Link prefetch={false} href={`/detail/${list._id}`}>
-                <h4>
-                  {list.title}
-                  {/* (id: {list._id}) */}
-                </h4>
-              </Link>
-              <Link href={`/edit/${list._id}`}>수 정</Link>
+            <Link prefetch={false} href={`/detail/${list._id}`}>
+              <h4>
+                {list.title}
+                {/* (id: {list._id}) */}
+              </h4>
+            </Link>
+            <Link href={`/edit/${list._id}`}>수 정 </Link>
 
-              <span
-                onClick={() => {
-                  fetch("/api/post/delete", {
-                    method: "POST",
-                    body: list._id, // 배열이나 오브젝트는 JSON.stringify로 보내주기
+            <span
+              className="ml-10"
+              onClick={(e) => {
+                fetch("/api/post/delete", {
+                  method: "POST",
+                  body: list._id, // 배열이나 오브젝트는 JSON.stringify로 보내주기
+                })
+                  .then((r) => {
+                    if (r.status === 200) {
+                      return r.json();
+                    } else {
+                      // 서버가 에러코드 전송시 실행할 코드
+                      console.log(r);
+                    }
                   })
-                    .then((r) => {
-                      if (r.status === 200) {
-                        return r.json();
-                      } else {
-                        // 서버가 에러코드 전송시 실행할 코드
-                        console.log(r);
-                      }
-                    })
-                    .then((result) => {
-                      // 성공시 실행할 코드
-                      console.log(result);
-                    })
-                    .catch((error) => {
-                      // 인터넷문제로 실패시 실행할 코드
-                      console.log(error);
-                    });
-                  //   .then(() => {
-                  //     console.log(result._id, "list._id 삭제 성공");
-                  //   });
-                }}
-              >
-                삭 제
-              </span>
-            </div>
+                  .then((result) => {
+                    // 성공시 실행할 코드
+                    e.target.parentElement.style.opacity = 0;
+                    setTimeout(() => {
+                      e.target.parentElement.style.display = "none";
+                    }, 1000);
+                  })
+                  .catch((error) => {
+                    // 인터넷문제로 실패시 실행할 코드
+                    console.log(error);
+                  });
+                //   .then(() => {
+                //     console.log(result._id, "list._id 삭제 성공");
+                //   });
+              }}
+            >
+              삭 제
+            </span>
             <DetailLink />
             <p>1월 1일</p>
             <span>{list.content}</span>
