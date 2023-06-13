@@ -3,7 +3,8 @@ import { connectDB } from "@/util/database";
 // import DetailLink from "./DetailLink";
 import ListItem from "./ListItem";
 
-export const dynamic = "force-dynamic";
+// list 페이지와 캐싱기능을 비교하기 위해 여기선 20초마다 캐싱 설정한다.
+export const revalidate = 20;
 
 // 클라이언트 컴포넌트인 DetailLink를 불러와서 현재 서버컴포넌트에 함께 사용할 수 있다.
 export default async function List() {
