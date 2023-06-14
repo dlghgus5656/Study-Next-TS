@@ -29,8 +29,9 @@ export default function ListItem({ result, userInfo }) {
 
             <span
               className="ml-10"
-              onClick={(e) => {
-                if (userInfo.user.email === list.author) {
+              onClick={
+                (e) => {
+                  // if (userInfo.user.email === list.author) {
                   fetch("/api/post/delete", {
                     method: "POST",
                     body: list._id, // 배열이나 오브젝트는 JSON.stringify로 보내주기
@@ -40,7 +41,8 @@ export default function ListItem({ result, userInfo }) {
                         return r.json();
                       } else {
                         // 서버가 에러코드 전송시 실행할 코드
-                        console.log(r);
+                        console.log(r, "rrr");
+                        return false;
                       }
                     })
                     .then((result) => {
@@ -57,10 +59,12 @@ export default function ListItem({ result, userInfo }) {
                   //   .then(() => {
                   //     console.log(result._id, "list._id 삭제 성공");
                   //   });
-                } else {
-                  alert("글 작성자가 아니면 삭제할 수 없습니다.");
                 }
-              }}
+                // else {
+                //   alert("글 작성자가 아니면 삭제할 수 없습니다.");
+                // }
+                //   }
+              }
             >
               삭 제
             </span>
