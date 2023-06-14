@@ -10,11 +10,16 @@ export default async function Detail(props) {
     .collection("post")
     .findOne({ _id: new ObjectId(props.params.id) });
 
-  // console.log(props.params.id, "props");
+  console.log(result, "props");
 
   return (
     <div>
-      <h2>{result.title}</h2>
+      <div className="flex flex-row gap-5 ">
+        <h2>{result.title}</h2>
+        <span className="mt-6">
+          {result.author ? `(작성자: ${result.author})` : null}
+        </span>
+      </div>
       {result.content}
     </div>
   );

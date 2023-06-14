@@ -9,7 +9,7 @@
 import { MongoClient } from "mongodb";
 
 const url =
-  "mongodb+srv://dlghgus5656:1nm1TO3KDC31oVBx@nextjs13notice.ptil2ou.mongodb.net/?retryWrites=true&w=majority";
+  "mongodb+srv://dlghgus5656:1nm1TO3KDC31oVBx@nextjs13notice.ptil2ou.mongodb.net/nextjsnotice?retryWrites=true&w=majority";
 const options = { useNewUrlParser: true };
 
 let connectDB;

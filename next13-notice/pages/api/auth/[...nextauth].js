@@ -1,3 +1,5 @@
+import { connectDB } from "@/util/database";
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 
@@ -9,5 +11,6 @@ export const authOptions = {
     }),
   ],
   secret: "1234qwer",
+  adapter: MongoDBAdapter(connectDB), // 다른 DB 쓰려면 다른 DB adapter 찾아서 사용하면 됨
 };
 export default NextAuth(authOptions);
