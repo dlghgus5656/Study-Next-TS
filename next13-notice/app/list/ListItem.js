@@ -41,20 +41,24 @@ export default function ListItem({ result, userInfo }) {
                         return r.json();
                       } else {
                         // 서버가 에러코드 전송시 실행할 코드
-                        console.log(r, "rrr");
+                        console.log(r, "삭제 실패");
                         return false;
                       }
                     })
                     .then((result) => {
-                      // 성공시 실행할 코드
-                      e.target.parentElement.style.opacity = 0;
-                      setTimeout(() => {
-                        e.target.parentElement.style.display = "none";
-                      }, 1000);
+                      console.log(result);
+                      if (result !== false) {
+                        // 성공시 실행할 코드
+                        alert("글 작성자입니다. 삭제완료");
+                        e.target.parentElement.style.opacity = 0;
+                        setTimeout(() => {
+                          e.target.parentElement.style.display = "none";
+                        }, 1000);
+                      } else return alert("글 작성자가 아닙니다. 삭제 실패");
                     })
                     .catch((error) => {
                       // 인터넷문제로 실패시 실행할 코드
-                      console.log(error);
+                      console.log(error, "error");
                     });
                   //   .then(() => {
                   //     console.log(result._id, "list._id 삭제 성공");

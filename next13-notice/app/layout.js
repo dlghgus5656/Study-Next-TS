@@ -36,7 +36,7 @@ export default async function RootLayout({ children }) {
               </Link>
             </div>
             <div>
-              <Link href="/sign">
+              <Link href="/register">
                 <h2>회원가입 페이지</h2>
               </Link>
             </div>
