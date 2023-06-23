@@ -1,6 +1,6 @@
-// import Check from "./check";
+"use client";
 
-export default function Register() {
+export default function Check({}) {
   return (
     <div>
       <form method="POST" action="/api/auth/signup">
