@@ -8,13 +8,12 @@ export default async function handler(요청, 응답) {
   const checkEmail = await db
     .collection("user_cred")
     .findOne({ email: 요청.body.email });
-  console.log(checkEmail, "ehiqowehoqw"); // todo 여기서 에러...뜬다...
 
   if (요청.method === "POST") {
     console.log(요청.body, "body");
     if (checkEmail) {
       console.log("중복된 이메일입니다.");
-      return 응답.redirect(302, "/register");
+      return 응답.status(300).json("중복된 이메일입니다.");
     } else if (요청.body.name === "") {
       console.log("이름을 입력해주세요.");
       응답.redirect(302, "/register");
