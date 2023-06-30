@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]";
 
 export default async function handler(요청, 응답) {
+  console.log(요청.body, "ㄷㅈㄷㅈㄷㅈㄷㅈㄷ");
   let session = await getServerSession(요청, 응답, authOptions); // api에서 사용시 요청, 응답도 넣어주어야 한다.
   if (session) {
     요청.body.author = session.user.email;

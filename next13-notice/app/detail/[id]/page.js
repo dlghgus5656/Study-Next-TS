@@ -2,6 +2,7 @@
 
 import { connectDB } from "@/util/database";
 import { ObjectId } from "mongodb";
+import Comment from "./Comment";
 
 export default async function Detail(props) {
   const db = (await connectDB).db("nextjsnotice");
@@ -14,13 +15,17 @@ export default async function Detail(props) {
 
   return (
     <div>
-      <div className="flex flex-row gap-5 ">
-        <h2>{result.title}</h2>
-        <span className="mt-6">
-          {result.author ? `(작성자: ${result.author})` : null}
-        </span>
+      <div>
+        <div className="flex flex-row gap-5 ">
+          <h2>{result.title}</h2>
+          <span className="mt-6">
+            ``
+            {result.author ? `(작성자: ${result.author})` : null}
+          </span>
+        </div>
+        <p>{result.content}</p>
       </div>
-      {result.content}
+      <Comment result={result} />
     </div>
   );
 }
