@@ -25,7 +25,7 @@ export default async function handler(요청, 응답) {
       }
       //   return 응답.redirect(302, "/list");
     } catch (error) {
-      console.log(error);
+      console.log(error, "error");
     }
   } else {
     return 응답.status(300).json("삭제실패: 로그인 안함");

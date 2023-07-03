@@ -19,7 +19,6 @@ export default async function Detail(props) {
         <div className="flex flex-row gap-5 ">
           <h2>{result.title}</h2>
           <span className="mt-6">
-            ``
             {result.author ? `(작성자: ${result.author})` : null}
           </span>
         </div>
