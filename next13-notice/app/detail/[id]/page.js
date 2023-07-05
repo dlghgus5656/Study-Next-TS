@@ -11,8 +11,6 @@ export default async function Detail(props) {
     .collection("post")
     .findOne({ _id: new ObjectId(props.params.id) });
 
-  console.log(result, "props");
-
   return (
     <div>
       <div>

@@ -9,7 +9,7 @@ export default async function handler(요청, 응답) {
     const result = JSON.parse(요청.body);
     console.log(result, "result 요청.body"); // 요청.body에 키값이 string값으로 들어와서 요청.body.content같은거 못썼는데 해결함
     console.log(session, "session");
-
+    console.log(result.parentid, "result");
     if (session === null) {
       return 응답.status(500).json("댓글 입력실패: 로그인 안함");
     } else if (result.content === "") {
@@ -19,12 +19,12 @@ export default async function handler(요청, 응답) {
         let 저장할거 = {
           content: result.content,
           author: session.user.email,
-          parent: new ObjectId(result._id),
+          parent: new ObjectId(result.parentid),
         };
-        console.log(저장할거, "저장할거");
 
         const db = (await connectDB).db("nextjsnotice");
         let saveComment = await db.collection("comment").insertOne(저장할거);
+
         return 응답.status(200).json("댓글 저장완료");
       } catch (error) {
         console.log(error, "error");
