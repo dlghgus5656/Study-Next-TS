@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 export default function Comment(result) {
   let [comment, setComment] = useState("");
   let [commentData, setCommentData] = useState([]);
+
   const [isLoading, setIsLoading] = useState(true);
 
   let postInfo = result.result;
@@ -26,7 +27,7 @@ export default function Comment(result) {
       });
   }, []);
 
-  // 댓글 수정 후
+  //댓글 수정 후
   useEffect(() => {
     // 댓글이 저장되면
     // 댓글 목록을 새로 가져와 화면에 업데이트
@@ -39,7 +40,8 @@ export default function Comment(result) {
     };
   }, [commentData]);
   // todo 댓글 작성자 이메일 말고 이름으로 출력해도 좋을듯?
-  // ! 하지만 관계형 db에 작성자 이름을 같이 저장하는건 안좋을 수 있다.
+  //  하지만 MySQL 관계형 DB들에 작성자 이름을 같이 저장하는건 안좋을 수 있다. // 예를 들어 댓글 저장에 내용,작성자이메일,게시물id에  작성자 이름도 함께 저장하는 것
+  //  but,MongoDB 등 비관계형 DB들은 좋은 관습이다.
   return (
     <div>
       <div className="flex mb-2">아래는 댓글 목록 보여주는 부분</div>
@@ -58,6 +60,9 @@ export default function Comment(result) {
         </div>
       )}
       <input
+        type="text"
+        name="input"
+        value={comment}
         className="flex mt-2"
         placeholder="댓글을 입력하세요"
         onChange={(e) => {
@@ -89,7 +94,8 @@ export default function Comment(result) {
               console.log(data, "data");
               if (data !== false) {
                 // 성공시 실행할 코드
-                setCommentData([...commentData, data]);
+                setCommentData([...comment, data]); // 댓글목록 바로 업데이트
+                setComment(""); //입력값 초기화
 
                 alert("댓글입력 완료");
                 // return;

@@ -9,5 +9,7 @@ export default async function handler(요청, 응답) {
     .collection("comment")
     .find({ parent: new ObjectId(요청.query.id) })
     .toArray();
-  응답.status(200).json(result);
+
+  // console.log(result, "resulttttt");
+  return 응답.status(200).json(result);
 }
