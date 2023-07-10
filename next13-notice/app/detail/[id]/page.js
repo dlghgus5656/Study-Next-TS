@@ -3,6 +3,7 @@
 import { connectDB } from "@/util/database";
 import { ObjectId } from "mongodb";
 import Comment from "./Comment";
+import LikeBtn from "./likeBtn";
 
 export default async function Detail(props) {
   const db = (await connectDB).db("nextjsnotice");
@@ -10,6 +11,8 @@ export default async function Detail(props) {
   let result = await db
     .collection("post")
     .findOne({ _id: new ObjectId(props.params.id) });
+
+  console.log(result._id, "resultpost");
 
   return (
     <div>
@@ -22,7 +25,10 @@ export default async function Detail(props) {
         </div>
         <p>{result.content}</p>
       </div>
-      <Comment result={result} />
+      <div className="flex flex-col gap-2">
+        <Comment result={result} />
+        <LikeBtn postid={result._id} />
+      </div>
     </div>
   );
 }

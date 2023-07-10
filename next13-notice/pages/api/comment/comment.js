@@ -19,6 +19,7 @@ export default async function handler(요청, 응답) {
         let 저장할거 = {
           content: result.content,
           author: session.user.email,
+          username: session.user.name,
           parent: new ObjectId(result.parentid),
         };
 

@@ -53,7 +53,7 @@ export default function Comment(result) {
           {commentData.map((arr, i) => {
             return (
               <div key={i}>
-                {arr.content} (작성자 : {arr.author})
+                {arr.content} (작성자 : {arr.username})
               </div>
             );
           })}
