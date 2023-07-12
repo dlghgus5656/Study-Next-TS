@@ -13,28 +13,28 @@ export default async function handler(요청, 응답) {
     return 응답.status(500).json("좋아요 실패: 게시물을 찾을 수 없음");
   } else {
     try {
-      // 좋아요 내역을 저장하는 컬렉션을 생성합니다.
       const db = (await connectDB).db("nextjsnotice");
-      const likesPost = await db.collection("likespost");
-      // console.log(
-      //   likesPost.find({
-      //     user_id: session.user.email,
-      //     post_id: 요청.body,
-      //   }),
-      //   "eeeeeeeee"
-      // );
-      // likesPost.find({
-      //   user_id: session.user.email,
-      //   post_id: 요청.body,
-      // });
 
-      //유저가 게시물을 좋아요 누를 때, 다음과 같은 문법을 사용하여 좋아요 내역을 저장합니다.
-      await likesPost.insertOne({
-        user_id: session.user.email,
-        post_id: 요청.body,
-      });
+      const likeCheck = await db
+        .collection("likespost")
+        .findOne({ user_id: session.user.email, post_id: 요청.body });
+      console.log(likeCheck, "likeCheck");
+      if (!likeCheck) {
+        // 좋아요 내역을 저장하는 컬렉션을 생성합니다.
+        const likesPost = await db.collection("likespost");
 
-      return 응답.status(200).json("좋아요 저장");
+        //유저가 게시물을 좋아요 누를 때, 다음과 같은 문법을 사용하여 좋아요 내역을 저장합니다.
+        await likesPost.insertOne({
+          user_id: session.user.email,
+          post_id: 요청.body,
+        });
+        return 응답.status(200).json("좋아요 완료");
+      } else {
+        let cancelLike = await db
+          .collection("likespost")
+          .deleteOne({ user_id: session.user.email, post_id: 요청.body });
+        return 응답.status(200).json("좋아요 취소");
+      }
     } catch (error) {
       console.log(error);
     }
