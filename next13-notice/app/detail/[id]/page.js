@@ -4,6 +4,7 @@ import { connectDB } from "@/util/database";
 import { ObjectId } from "mongodb";
 import Comment from "./Comment";
 import LikeBtn from "./likeBtn";
+import NotFound from "./not-found";
 
 export default async function Detail(props) {
   const db = (await connectDB).db("nextjsnotice");
@@ -13,6 +14,10 @@ export default async function Detail(props) {
     .findOne({ _id: new ObjectId(props.params.id) });
 
   console.log(result._id, "resultpost");
+  console.log(result, "eqwojiepoqwij");
+  if (!result) {
+    return NotFound();
+  }
 
   return (
     <div>
