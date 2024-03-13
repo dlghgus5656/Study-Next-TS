@@ -33,10 +33,16 @@ export async function createInvoice(formData: FormData) {
   // 마지막으로 송장 생성 날짜에 대해 "YYYY-MM-DD" 형식으로 새 날짜를 생성해 보겠습니다.
   const date = new Date().toISOString().split('T')[0];
 
-  await sql`
+  try {
+    await sql`
   INSERT INTO invoices (customer_id, amount, status, date)
   VALUES (${customerId}, ${amountInCents}, ${status}, ${date})
   `;
+  } catch (error) {
+    return {
+      message: 'Database Error: Failed to Create Invoice.',
+    };
+  }
 
   // 재검증
   revalidatePath('/dashboard/invoices');
@@ -67,11 +73,16 @@ export async function updateInvoice(id: string, formData: FormData) {
   // 새 날짜 만들기
   // 마지막으로 송장 생성 날짜에 대해 "YYYY-MM-DD" 형식으로 새 날짜를 생성해 보겠습니다.
   // const date = new Date().toISOString().split('T')[0];
-
-  await sql`
+  try {
+    await sql`
   UPDATE invoices
   SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status}
   `;
+  } catch (error) {
+    return {
+      message: 'Database ErrorL: Failed to Update Invoice.',
+    };
+  }
 
   // 재검증
   revalidatePath('/dashboard/invoices');
@@ -80,8 +91,13 @@ export async function updateInvoice(id: string, formData: FormData) {
 }
 
 export async function deleteInvoice(id: string) {
-  console.log('삭제중');
+  throw new Error('Failed to Delete Invoice');
 
-  await sql`DELETE FROM invoices WHERE id = ${id}`;
-  revalidatePath('/dashboard/invoices');
+  try {
+    await sql`DELETE FROM invoices WHERE id = ${id}`;
+    revalidatePath('/dashboard/invoices');
+    return { message: 'Deleted Invoice.' };
+  } catch (error) {
+    return { message: 'Database Error: failed to Delete Invoice.' };
+  }
 }
